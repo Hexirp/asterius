@@ -7,7 +7,7 @@ jobs:
 
   ghc-tinfo6:
     name: ghc-tinfo6
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
 
       - name: checkout
@@ -23,7 +23,7 @@ jobs:
             --pull always \
             --volume $(pwd):/asterius \
             --workdir /asterius \
-            debian:sid \
+            sid-20200607 \
             .github/workflows/build-tinfo6.sh
 
       - name: upload-artifact
@@ -34,7 +34,7 @@ jobs:
 
   ghc-standard:
     name: ghc-standard
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
 
       - name: checkout
@@ -50,7 +50,7 @@ jobs:
             --pull always \
             --volume $(pwd):/asterius \
             --workdir /asterius \
-            debian:stretch \
+            debian:stretch-20200607 \
             .github/workflows/build-standard.sh
 
       - name: upload-artifact
@@ -61,7 +61,7 @@ jobs:
 
   ghc-musl:
     name: ghc-musl
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
 
       - name: checkout
@@ -88,7 +88,7 @@ jobs:
 
   ghc-macos:
     name: ghc-macos
-    runs-on: macos-latest
+    runs-on: macos-10.15
     env:
       BRANCH: asterius-8.8
       JOBS: 2
@@ -104,7 +104,7 @@ jobs:
           mkdir -p ~/.local/bin
           curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-osx-x86_64-bin -o ~/.local/bin/stack
           chmod +x ~/.local/bin/stack
-          ~/.local/bin/stack --resolver nightly-2020-06-20 install \
+          ~/.local/bin/stack --resolver nightly install \
             alex \
             happy \
             hscolour
@@ -135,3 +135,22 @@ jobs:
         with:
           name: ghc-macos-bindist
           path: /tmp/ghc-bindist
+
+  ghc-windows:
+    name: ghc-windows
+    runs-on: windows-2019
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        shell: cmd
+        run: |
+          C:\msys64\msys2_shell.cmd -mingw64 -defterm -here -no-start .github/workflows/build-windows.sh
+
+      - name: upload-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ghc-windows-bindist
+          path: ghc-bindist
