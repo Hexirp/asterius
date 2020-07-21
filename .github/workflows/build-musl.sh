@@ -41,7 +41,7 @@ curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stac
 chmod +x ~/.local/bin/stack
 mkdir ~/.stack
 echo "ghc-build: musl" > ~/.stack/config.yaml
-~/.local/bin/stack --resolver nightly install \
+~/.local/bin/stack --resolver ghc-8.8.4 install \
   alex \
   happy \
   hscolour

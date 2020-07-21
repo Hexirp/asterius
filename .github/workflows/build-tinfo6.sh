@@ -22,7 +22,7 @@ apt install -y \
 mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-linux-x86_64-bin -o ~/.local/bin/stack
 chmod u+x ~/.local/bin/stack
-~/.local/bin/stack --resolver nightly install \
+~/.local/bin/stack --resolver ghc-8.8.4 install \
   alex \
   happy \
   hscolour
