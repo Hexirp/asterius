@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+pacman -S --needed --noconfirm \
+  git \
+  mingw-w64-x86_64-python-sphinx \
+  mingw-w64-x86_64-toolchain
+
 pushd /c/Users/runneradmin/AppData/Roaming
 mkdir -p local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-windows-x86_64-bin.exe -o local/bin/stack.exe
