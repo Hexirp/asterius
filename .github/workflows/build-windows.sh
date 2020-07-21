@@ -25,7 +25,7 @@ cp .github/workflows/build-windows.mk /tmp/ghc/mk/
 pushd /tmp/ghc
 ./boot
 ./configure
-make -j2
+make -j$JOBS
 make binary-dist
 mkdir ghc-bindist
 mv *.tar.* ghc-bindist/
