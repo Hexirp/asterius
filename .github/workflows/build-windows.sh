@@ -23,7 +23,7 @@ stack --resolver nightly install \
 export PATH=$(stack path --compiler-bin):$PATH
 
 pushd /tmp
-git clone --recurse-submodules --branch $BRANCH --depth=1 https://github.com/TerrorJack/ghc.git
+git clone --recurse-submodules --branch $BRANCH https://github.com/TerrorJack/ghc.git
 popd
 
 cp .github/workflows/build-windows.mk /tmp/ghc/mk/
