@@ -3,7 +3,6 @@
 set -euo pipefail
 
 pacman -S --needed --noconfirm \
-  base-devel \
   git \
   mingw-w64-x86_64-python-sphinx
 
