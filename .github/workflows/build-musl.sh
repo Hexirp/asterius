@@ -18,6 +18,7 @@ apk add --no-progress \
   findutils \
   g++ \
   gawk \
+  ghc \
   git \
   gmp-dev \
   grep \
@@ -40,8 +41,8 @@ mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-linux-x86_64-bin -o ~/.local/bin/stack
 chmod +x ~/.local/bin/stack
 mkdir ~/.stack
-echo "ghc-build: musl" > ~/.stack/config.yaml
-~/.local/bin/stack --resolver ghc-8.8.4 install \
+printf "system-ghc: true\nghc-build: musl\n" > ~/.stack/config.yaml
+~/.local/bin/stack --resolver ghc-8.8.3 install \
   alex \
   happy \
   hscolour
