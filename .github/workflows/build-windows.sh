@@ -3,9 +3,9 @@
 set -euo pipefail
 
 pacman -S --needed --noconfirm \
+  base-devel \
   git \
-  mingw-w64-x86_64-python-sphinx \
-  mingw-w64-x86_64-toolchain
+  mingw-w64-x86_64-python-sphinx
 
 pushd /c/Users/runneradmin/AppData/Roaming
 mkdir -p local/bin
@@ -29,7 +29,7 @@ popd
 cp .github/workflows/build-windows.mk /tmp/ghc/mk/
 pushd /tmp/ghc
 ./boot
-./configure
+./configure --enable-tarballs-autodownload
 make -j$JOBS
 make binary-dist
 mkdir ghc-bindist
