@@ -23,7 +23,7 @@ jobs:
             --pull always \
             --volume $(pwd):/asterius \
             --workdir /asterius \
-            sid-20200607 \
+            debian:sid-20200607 \
             .github/workflows/build-tinfo6.sh
 
       - name: upload-artifact
