@@ -279,8 +279,8 @@ rtsFunctionImports debug =
              externalModuleName = "StablePtr",
              externalBaseName = "newStablePtr",
              functionType = FunctionType
-               { paramTypes = [F64],
-                 returnTypes = [F64]
+               { paramTypes = [I64],
+                 returnTypes = [I64]
                }
            },
          FunctionImport
@@ -311,7 +311,7 @@ rtsFunctionImports debug =
            { internalName = "printI64",
              externalModuleName = "rts",
              externalBaseName = "printI64",
-             functionType = FunctionType {paramTypes = [F64], returnTypes = []}
+             functionType = FunctionType {paramTypes = [I64], returnTypes = []}
            },
          FunctionImport
            { internalName = "assertEqI64",
@@ -818,14 +818,10 @@ generateWrapperFunction func_sym Function {functionType = FunctionType {..}} =
     }
   where
     wrapper_param_types =
-      [ case param_type of
-          I64 -> (i, F64, truncSFloat64ToInt64)
-          _ -> (i, param_type, id)
+      [ (i, param_type, id)
         | (i, param_type) <- zip [0 ..] paramTypes
       ]
-    (wrapper_return_types, to_wrapper_return_types) = case returnTypes of
-      [I64] -> ([F64], convertSInt64ToFloat64)
-      _ -> (returnTypes, id)
+    (wrapper_return_types, to_wrapper_return_types) = (returnTypes, id)
 
 -- Renames each function in the module to <name>_wrapper, and
 -- edits their implementation using 'generateWrapperFunction'
@@ -1090,9 +1086,9 @@ getStablePtrWrapperFunction _ = runEDSL "getStablePtr" $ do
   sp_f64 <-
     callImport'
       "__asterius_newStablePtr"
-      [convertUInt64ToFloat64 obj64]
-      F64
-  emit $ truncUFloat64ToInt64 sp_f64
+      [obj64]
+      I64
+  emit sp_f64
 
 deRefStablePtrWrapperFunction :: BuiltinsOptions -> AsteriusModule
 deRefStablePtrWrapperFunction _ = runEDSL "deRefStablePtr" $ do
@@ -1260,7 +1256,7 @@ loadI64Function _ = runEDSL "loadI64" $ do
 printI64Function :: BuiltinsOptions -> AsteriusModule
 printI64Function _ = runEDSL "print_i64" $ do
   x <- param I64
-  callImport "printI64" [convertSInt64ToFloat64 x]
+  callImport "printI64" [x]
 
 assertEqI64Function :: BuiltinsOptions -> AsteriusModule
 assertEqI64Function _ = runEDSL "assert_eq_i64" $ do

@@ -314,13 +314,13 @@ ahcDistMain logger task (final_m, report) = do
           (tailCalls task)
           (staticsSymbolMap report <> functionSymbolMap report)
           final_m
-      when (optimizeLevel task > 0 || shrinkLevel task > 0) $ do
+      {-when (optimizeLevel task > 0 || shrinkLevel task > 0) $ do
         logger "[INFO] Running binaryen optimization"
         Binaryen.optimize m_ref
       when (validate task) $ do
         logger "[INFO] Validating binaryen IR"
         pass_validation <- Binaryen.validate m_ref
-        when (pass_validation /= 1) $ fail "[ERROR] binaryen validation failed"
+        when (pass_validation /= 1) $ fail "[ERROR] binaryen validation failed"-}
       m_bin <- Binaryen.serializeModule m_ref
       logger $ "[INFO] Writing WebAssembly binary to " <> show out_wasm
       BS.writeFile out_wasm m_bin
@@ -436,13 +436,13 @@ ahcDistMain logger task (final_m, report) = do
       then do
         logger $ "[INFO] Running " <> out_js
         callProcess "node" $
-          ["--experimental-wasm-bigint" | debug task]
+          ["--experimental-wasm-bigint"]
             <> ["--experimental-wasm-return-call" | tailCalls task]
             <> [takeFileName out_js]
       else do
         logger $ "[INFO] Running " <> out_entry
         callProcess "node" $
-          ["--experimental-wasm-bigint" | debug task]
+          ["--experimental-wasm-bigint"]
             <> ["--experimental-wasm-return-call" | tailCalls task]
             <> ["--experimental-modules", takeFileName out_entry]
 
