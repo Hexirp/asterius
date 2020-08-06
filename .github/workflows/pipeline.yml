@@ -348,6 +348,32 @@ jobs:
           name: gen-pkgs
           path: gen-pkgs
 
+  asterius-libc:
+    name: asterius-libc
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: setup-deps
+        run: |
+          curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-11/wasi-sdk_11.0_amd64_ubuntu20.04.deb -o /tmp/wasi-sdk.deb
+          sudo dpkg -i /tmp/wasi-sdk.deb
+          rm /tmp/wasi-sdk.deb
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: asterius-libc
+        run: |
+          pushd asterius-libc
+          ./make.sh
+          popd
+
+      - name: upload-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: asterius-libc
+          path: asterius-libc/asterius-libc.wasm
+
   image:
     name: image-${{ matrix.image }}
     runs-on: ubuntu-20.04
