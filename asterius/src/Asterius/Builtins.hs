@@ -138,6 +138,7 @@ rtsAsteriusModule opts =
             )
     }
     <> hsInitFunction opts
+    <> wasmApplyRelocsFunction opts
     <> createThreadFunction opts
     <> getThreadIdFunction opts
     <> genAllocateFunction opts "allocate"
@@ -679,6 +680,7 @@ rtsFunctionExports debug =
                  else []
              )
                <> ["hs_init"]
+               <> ["__wasm_apply_relocs"]
        ] <> [ FunctionExport
       { internalName = "stg_returnToSchedNotPaused",
         externalName = "stg_returnToSchedNotPaused"
@@ -895,6 +897,14 @@ hsInitFunction _ = runEDSL "hs_init" $ do
   bd_nursery <-
     truncUFloat64ToInt64 <$> callImport' "__asterius_hpAlloc" [constF64 8] F64
   putLVal currentNursery bd_nursery
+
+wasmApplyRelocsFunction :: BuiltinsOptions -> AsteriusModule
+wasmApplyRelocsFunction _ = runEDSL "__wasm_apply_relocs" $ do
+  -- TODO: implement me.
+  -- NOTE: probably pure () is sufficient alone.
+  setReturnTypes []
+  params []
+  pure ()
 
 rtsApplyFunction :: BuiltinsOptions -> AsteriusModule
 rtsApplyFunction _ = runEDSL "rts_apply" $ do
