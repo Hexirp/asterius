@@ -903,7 +903,7 @@ wasmApplyRelocsFunction _ = runEDSL "__wasm_apply_relocs" $ do
   -- TODO: implement me.
   -- NOTE: probably pure () is sufficient alone.
   setReturnTypes []
-  params []
+  _ <- params []
   pure ()
 
 rtsApplyFunction :: BuiltinsOptions -> AsteriusModule
