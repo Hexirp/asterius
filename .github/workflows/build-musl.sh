@@ -38,11 +38,11 @@ apk add --no-progress \
 ln -s /usr/lib/libncursesw.so.6 /usr/lib/libtinfow.so.6
 
 mkdir -p ~/.local/bin
-curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-linux-x86_64-bin -o ~/.local/bin/stack
+curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.3/stack-2.3.3-linux-x86_64-bin -o ~/.local/bin/stack
 chmod +x ~/.local/bin/stack
 mkdir ~/.stack
 printf "system-ghc: true\nghc-build: musl\n" > ~/.stack/config.yaml
-~/.local/bin/stack --resolver ghc-8.8.3 install \
+~/.local/bin/stack --resolver ghc-8.8.4 install \
   alex \
   happy \
   hscolour

@@ -8,7 +8,7 @@ pacman -S --needed --noconfirm \
 
 pushd /c/Users/runneradmin/AppData/Roaming
 mkdir -p local/bin
-curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-windows-x86_64-bin.exe -o local/bin/stack.exe
+curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.3/stack-2.3.3-windows-x86_64-bin.exe -o local/bin/stack.exe
 mkdir stack
 echo "skip-msys: true" > stack/config.yaml
 popd

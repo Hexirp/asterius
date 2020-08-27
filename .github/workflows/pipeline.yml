@@ -23,13 +23,40 @@ jobs:
             --pull always \
             --volume $(pwd):/asterius \
             --workdir /asterius \
-            debian:sid-20200607 \
+            debian:sid-20200803 \
             .github/workflows/build-tinfo6.sh
 
       - name: upload-artifact
         uses: actions/upload-artifact@v2
         with:
           name: ghc-tinfo6-bindist
+          path: ghc-bindist
+
+  ghc-tinfo6-dwarf:
+    name: ghc-tinfo6-dwarf
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          podman run \
+            --env BRANCH=asterius-8.8 \
+            --env DEBIAN_FRONTEND=noninteractive \
+            --env MAKEFLAGS=-j2 \
+            --env XZ_OPT=-9eT2 \
+            --pull always \
+            --volume $(pwd):/asterius \
+            --workdir /asterius \
+            debian:sid-20200803 \
+            .github/workflows/build-tinfo6-dwarf.sh
+
+      - name: upload-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ghc-tinfo6-dwarf-bindist
           path: ghc-bindist
 
   ghc-standard:
@@ -50,7 +77,7 @@ jobs:
             --pull always \
             --volume $(pwd):/asterius \
             --workdir /asterius \
-            debian:stretch-20200607 \
+            debian:stretch-20200803 \
             .github/workflows/build-standard.sh
 
       - name: upload-artifact
@@ -102,7 +129,7 @@ jobs:
             coreutils \
             sphinx-doc
           mkdir -p ~/.local/bin
-          curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-osx-x86_64-bin -o ~/.local/bin/stack
+          curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.3/stack-2.3.3-osx-x86_64-bin -o ~/.local/bin/stack
           chmod +x ~/.local/bin/stack
           ~/.local/bin/stack --resolver ghc-8.8.4 install \
             alex \

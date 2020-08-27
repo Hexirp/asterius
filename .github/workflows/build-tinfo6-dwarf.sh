@@ -2,9 +2,7 @@
 
 set -euo pipefail
 
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200827T084011Z stretch main contrib non-free' > /etc/apt/sources.list
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20200827T084011Z stretch/updates main contrib non-free' >> /etc/apt/sources.list
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200827T084011Z stretch-updates main contrib non-free' >> /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200827T084011Z sid main contrib non-free' > /etc/apt/sources.list
 apt update
 apt full-upgrade -y
 apt install -y \
@@ -13,6 +11,7 @@ apt install -y \
   curl \
   gawk \
   git \
+  libdw-dev \
   libffi-dev \
   libgmp-dev \
   libncurses-dev \
@@ -34,10 +33,10 @@ git clone --recurse-submodules --branch $BRANCH https://github.com/TerrorJack/gh
 popd
 
 export PATH=~/.local/bin:$(~/.local/bin/stack path --compiler-bin):$PATH
-mv .github/workflows/build-linux.mk /tmp/ghc/mk/build.mk
+mv .github/workflows/build-linux-dwarf.mk /tmp/ghc/mk/build.mk
 pushd /tmp/ghc
 ./boot
-./configure
+./configure --enable-dwarf-unwind
 make
 make binary-dist
 mkdir ghc-bindist
