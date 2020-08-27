@@ -43,9 +43,9 @@ chmod +x ~/.local/bin/stack
 mkdir ~/.stack
 printf "system-ghc: true\nghc-build: musl\n" > ~/.stack/config.yaml
 ~/.local/bin/stack --resolver ghc-8.8.4 install \
-  alex \
-  happy \
-  hscolour
+  alex-3.2.5 \
+  happy-1.19.12 \
+  hscolour-1.24.4
 
 cd /tmp
 git clone --recurse-submodules --branch $BRANCH https://github.com/TerrorJack/ghc.git

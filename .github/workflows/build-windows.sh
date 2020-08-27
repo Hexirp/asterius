@@ -16,9 +16,9 @@ popd
 export PATH=/c/Users/runneradmin/AppData/Roaming/local/bin:$PATH
 stack update
 stack --resolver ghc-8.8.4 install \
-  alex \
-  happy \
-  hscolour
+  alex-3.2.5 \
+  happy-1.19.12 \
+  hscolour-1.24.4
 export PATH=$(stack path --compiler-bin):$PATH
 
 pushd /tmp

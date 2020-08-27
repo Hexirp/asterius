@@ -24,9 +24,9 @@ mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.3/stack-2.3.3-linux-x86_64-bin -o ~/.local/bin/stack
 chmod u+x ~/.local/bin/stack
 ~/.local/bin/stack --resolver ghc-8.8.4 install \
-  alex \
-  happy \
-  hscolour
+  alex-3.2.5 \
+  happy-1.19.12 \
+  hscolour-1.24.4
 
 pushd /tmp
 git clone --recurse-submodules --branch $BRANCH https://github.com/TerrorJack/ghc.git
