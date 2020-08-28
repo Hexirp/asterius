@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200828T144133Z sid main contrib non-free' > /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200828T083857Z sid main contrib non-free' > /etc/apt/sources.list
 apt update
 apt full-upgrade -y
 apt install -y \
