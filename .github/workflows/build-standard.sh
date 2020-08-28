@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200827T084011Z stretch main contrib non-free' > /etc/apt/sources.list
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20200827T084011Z stretch/updates main contrib non-free' >> /etc/apt/sources.list
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200827T084011Z stretch-updates main contrib non-free' >> /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200828T144133Z stretch main contrib non-free' > /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20200828T144133Z stretch/updates main contrib non-free' >> /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200828T144133Z stretch-updates main contrib non-free' >> /etc/apt/sources.list
 apt update
 apt full-upgrade -y
 apt install -y \
