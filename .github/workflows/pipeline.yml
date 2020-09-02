@@ -95,4 +95,4 @@ jobs:
       - name: build
         run: |
           cd yhseq-web/
-          ahc-cabal v1-build
+          stack exec -- ahc-cabal v1-build
