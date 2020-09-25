@@ -25,6 +25,8 @@ jobs:
 
       - name: checkout
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: setup-deps
         run: |
@@ -70,6 +72,8 @@ jobs:
 
       - name: checkout
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: setup-deps
         run: |
